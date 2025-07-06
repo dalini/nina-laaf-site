@@ -6,13 +6,8 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy({"src/css": "css"});
   eleventyConfig.addPassthroughCopy({"src/js": "js"});
   
-  // Copy work images to proper locations
-  eleventyConfig.addPassthroughCopy({"content/works/lackierung-faltung-crash/images": "works/lackierung-faltung-crash"});
-  eleventyConfig.addPassthroughCopy({"content/works/raumforderung/images": "works/raumforderung"});
-  eleventyConfig.addPassthroughCopy({"content/works/coc-n/images": "works/coc-n"});
-  eleventyConfig.addPassthroughCopy({"content/works/kristall/images": "works/kristall"});
-  eleventyConfig.addPassthroughCopy({"content/works/lachperformance/images": "works/lachperformance"});
-  eleventyConfig.addPassthroughCopy({"content/works/s-0-000975482-x-l1-08-x-m0-46/images": "works/s-0-000975482-x-l1-08-x-m0-46"});
+  // Copy all work images to proper locations under _site/works/
+  eleventyConfig.addPassthroughCopy({"content/works": "works"});
   
   // Watch for changes
   eleventyConfig.addWatchTarget("src/css/");
@@ -57,7 +52,7 @@ module.exports = function(eleventyConfig) {
   });
   
   eleventyConfig.addCollection("essays", function(collection) {
-    return collection.getFilteredByGlob("content/essays/*.md").sort((a, b) => {
+    return collection.getFilteredByGlob("src/essays/*.md").sort((a, b) => {
       return new Date(b.data.date) - new Date(a.data.date);
     });
   });

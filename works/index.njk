@@ -12,7 +12,7 @@ title: "Works"
     <article class="work-card">
         <a href="{{ work.url }}">
             {% if work.data.featured_image %}
-                <img src="{{ work.data.featured_image }}" alt="{{ work.data.title }}" />
+                <img src="{{ work.url }}{{ work.data.featured_image }}" alt="{{ work.data.title }}" />
             {% endif %}
             <div class="work-info">
                 <h3>{{ work.data.title }}</h3>
