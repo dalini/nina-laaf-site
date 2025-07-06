@@ -1,0 +1,41 @@
+---
+layout: base.njk
+title: "Home"
+---
+
+<div class="hero">
+    <h1 class="hero-title">Nina Laaf</h1>
+    <p class="hero-subtitle">Contemporary Sculptor</p>
+</div>
+
+<section class="featured-works">
+    <h2>Featured Works</h2>
+    <div class="works-grid">
+        {% for work in collections.works %}
+            {% if work.data.featured %}
+            <article class="work-card">
+                <a href="{{ work.url }}">
+                    {% if work.data.featured_image %}
+                        {% image work.data.featured_image, work.data.title, "(min-width: 768px) 33vw, 100vw" %}
+                    {% endif %}
+                    <h3>{{ work.data.title }}</h3>
+                    {% if work.data.year %}<span class="year">{{ work.data.year }}</span>{% endif %}
+                </a>
+            </article>
+            {% endif %}
+        {% endfor %}
+    </div>
+</section>
+
+<section class="recent-news">
+    <h2>Recent News</h2>
+    {% for post in collections.news %}
+        {% if loop.index <= 3 %}
+    <article class="news-item">
+        <h3><a href="{{ post.url }}">{{ post.data.title }}</a></h3>
+        <time>{{ post.data.date }}</time>
+        <p>{{ post.data.excerpt }}</p>
+    </article>
+        {% endif %}
+    {% endfor %}
+</section>
