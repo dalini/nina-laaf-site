@@ -7,7 +7,15 @@
     "start": "eleventy --serve",
     "build": "eleventy",
     "clean": "rm -rf _site",
-    "migrate": "node scripts/migrate.js"
+    "migrate": "node scripts/migrate-improved.js",
+    "test": "npm run test:build && npm run test:links && npm run test:accessibility && npm run test:performance",
+    "test:build": "npm run build",
+    "test:links": "node tests/link-checker.js",
+    "test:accessibility": "node tests/accessibility-test.js",
+    "test:performance": "node tests/performance-test.js",
+    "test:content": "node tests/content-validation.js",
+    "lint": "echo 'No linting configured yet'",
+    "typecheck": "echo 'No TypeScript configured'"
   },
   "keywords": ["portfolio", "art", "sculpture", "eleventy"],
   "author": "Nina Laaf",
@@ -15,7 +23,10 @@
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1",
     "@11ty/eleventy-img": "^3.1.8",
-    "@11ty/eleventy-navigation": "^0.3.5"
+    "@11ty/eleventy-navigation": "^0.3.5",
+    "puppeteer": "^21.0.0",
+    "axe-core": "^4.8.0",
+    "chalk": "^4.1.2"
   },
   "dependencies": {
     "sqlite3": "^5.1.6",

@@ -3,9 +3,16 @@ const path = require("path");
 
 module.exports = function(eleventyConfig) {
   // Copy static assets
-  eleventyConfig.addPassthroughCopy("src/css");
-  eleventyConfig.addPassthroughCopy("src/js");
-  eleventyConfig.addPassthroughCopy("content/**/images");
+  eleventyConfig.addPassthroughCopy({"src/css": "css"});
+  eleventyConfig.addPassthroughCopy({"src/js": "js"});
+  
+  // Copy work images to proper locations
+  eleventyConfig.addPassthroughCopy({"content/works/lackierung-faltung-crash/images": "works/lackierung-faltung-crash"});
+  eleventyConfig.addPassthroughCopy({"content/works/raumforderung/images": "works/raumforderung"});
+  eleventyConfig.addPassthroughCopy({"content/works/coc-n/images": "works/coc-n"});
+  eleventyConfig.addPassthroughCopy({"content/works/kristall/images": "works/kristall"});
+  eleventyConfig.addPassthroughCopy({"content/works/lachperformance/images": "works/lachperformance"});
+  eleventyConfig.addPassthroughCopy({"content/works/s-0-000975482-x-l1-08-x-m0-46/images": "works/s-0-000975482-x-l1-08-x-m0-46"});
   
   // Watch for changes
   eleventyConfig.addWatchTarget("src/css/");
@@ -13,7 +20,14 @@ module.exports = function(eleventyConfig) {
   
   // Image shortcode for responsive images
   eleventyConfig.addShortcode("image", async function(src, alt, sizes = "100vw") {
-    const metadata = await Image(src, {
+    // Handle relative paths from content directories
+    let imagePath = src;
+    if (!path.isAbsolute(src)) {
+      // If it's a relative path, resolve it from the current page directory
+      imagePath = path.resolve(this.page.inputPath ? path.dirname(this.page.inputPath) : ".", src);
+    }
+    
+    const metadata = await Image(imagePath, {
       widths: [400, 800, 1200, 1600],
       formats: ["webp", "jpeg"],
       outputDir: "_site/images/",
@@ -61,10 +75,10 @@ module.exports = function(eleventyConfig) {
   
   return {
     dir: {
-      input: "src",
-      includes: "_includes",
-      layouts: "_layouts",
-      data: "_data",
+      input: ".",
+      includes: "src/_includes",
+      layouts: "src/_layouts",
+      data: "src/_data",
       output: "_site"
     },
     templateFormats: ["md", "njk", "html"],

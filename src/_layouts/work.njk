@@ -20,7 +20,7 @@ layout: base.njk
     <div class="work-gallery">
         {% for image in images %}
             <figure class="work-image">
-                {% image image.src, image.alt or title, "(min-width: 1024px) 50vw, 100vw" %}
+                <img src="{{ image.src }}" alt="{{ image.alt or title }}" />
                 {% if image.caption %}<figcaption>{{ image.caption }}</figcaption>{% endif %}
             </figure>
         {% endfor %}

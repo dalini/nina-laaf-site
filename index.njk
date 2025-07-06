@@ -16,7 +16,7 @@ title: "Home"
             <article class="work-card">
                 <a href="{{ work.url }}">
                     {% if work.data.featured_image %}
-                        {% image work.data.featured_image, work.data.title, "(min-width: 768px) 33vw, 100vw" %}
+                        <img src="{{ work.data.featured_image }}" alt="{{ work.data.title }}" />
                     {% endif %}
                     <h3>{{ work.data.title }}</h3>
                     {% if work.data.year %}<span class="year">{{ work.data.year }}</span>{% endif %}

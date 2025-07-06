@@ -25,6 +25,13 @@ Thumbs.db
 current_site/
 *.sql
 
+# Security keys and sensitive files
+meta/
+*.ppk
+*.pub
+*.key
+key-*
+
 # Logs
 *.log
 npm-debug.log*
