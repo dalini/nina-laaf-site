@@ -1,22 +1,44 @@
 ---
 layout: base.njk
-title: "Essays"
+title: "Home"
 ---
 
-<div class="page-header">
-    <h1>Essays</h1>
+<div class="hero">
+    <h1 class="hero-title">Nina Laaf</h1>
+    <p class="hero-subtitle">Contemporary Sculptor</p>
 </div>
 
-<div class="essays-list">
-    {% for essay in collections.essays %}
-    <article class="essay-item">
-        <h2><a href="{{ essay.url }}">{{ essay.data.title }}</a></h2>
-        {% if essay.data.date %}<time>{{ essay.data.date }}</time>{% endif %}
-        {% if essay.data.excerpt %}<p>{{ essay.data.excerpt }}</p>{% endif %}
+<section class="featured-works">
+    <h2>Featured Works</h2>
+    <div class="works-grid">
+        {% for work in collections.works %}
+            {% if work.data.featured %}
+            <article class="work-card">
+                <a href="{{ work.url }}">
+                    {% if work.data.featured_image %}
+                        <img src="{{ work.url }}{{ work.data.featured_image }}" alt="{{ work.data.title }}" />
+                    {% endif %}
+                    <div class="work-info">
+                        <h3>{{ work.data.title }}</h3>
+                        {% if work.data.year %}<span class="year">{{ work.data.year }}</span>{% endif %}
+                        {% if work.data.materials %}<span class="materials">{{ work.data.materials }}</span>{% endif %}
+                    </div>
+                </a>
+            </article>
+            {% endif %}
+        {% endfor %}
+    </div>
+</section>
+
+<section class="recent-news">
+    <h2>Recent News</h2>
+    {% for post in collections.news %}
+        {% if loop.index <= 3 %}
+    <article class="news-item">
+        <h3><a href="{{ post.url }}">{{ post.data.title }}</a></h3>
+        <time>{{ post.data.date }}</time>
+        <p>{{ post.data.excerpt }}</p>
     </article>
+        {% endif %}
     {% endfor %}
-    
-    {% if collections.essays.length === 0 %}
-    <p>No essays published yet.</p>
-    {% endif %}
-</div>
+</section>
