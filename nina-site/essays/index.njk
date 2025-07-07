@@ -1,0 +1,19 @@
+layout: base.njk
+title: "Essays"
+---
+
+<div class="page-header">
+    <h1>Essays</h1>
+</div>
+
+<div class="essays-list">
+    {% for essay in collections.essays %}
+    <article class="essay-item">
+        <h2><a href="{{ essay.url }}">{{ essay.data.title }}</a></h2>
+        <time>{{ essay.data.date }}</time>
+        {% if essay.data.excerpt %}
+        <p>{{ essay.data.excerpt }}</p>
+        {% endif %}
+    </article>
+    {% endfor %}
+</div>
